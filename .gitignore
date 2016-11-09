@@ -2,4 +2,3 @@ node_modules
 .vagrant
 config.json
 .DS_Store
-static

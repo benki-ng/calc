@@ -18,6 +18,16 @@
 
             <h3> Calculator </h3>
 
+            <p>Select mode</p>
+            <div class="switch">
+              <label>
+                 evaluate
+                 <input type="checkbox" ng-model="func">
+                 <span class="lever"></span>
+                 factorial
+              </label><br/>
+            </div>
+
             <!-- equation entry box -->
             <div class="row">
                 <form class="col s12" ng-submit="submitFunction()">
@@ -29,12 +39,13 @@
                     </div>
                   </div>
 
+                  <!--equation submit button -->
                   <input class="btn waves-effect waves-light" type="submit" value="Submit"/>
 
                 </form>
               </div>
 
-              <!--equation submit button -->
+
 
               <!--solution display area -->
               <div class="solution">
@@ -52,14 +63,33 @@
       var app = angular.module('myApp', []);
 
       app.controller('MainController', ['$scope','$http',function($scope,$http){
+
+        //set default value checkbox to false
+        $scope.func = false;
+
         $scope.submitFunction = function (){
-        $http.post('/calculate',{"sum":$scope.sum})
-          .then((data)=>{
-            console.log(data)
-            $scope.ans = data.data.result
-          }).catch((error)=>{
-            console.error(error)
-          })
+          console.log($scope.func)
+
+          if ($scope.func) {
+            console.log("factorial")
+            $http.post('/factorial',{"sum":$scope.sum})
+              .then((data)=>{
+              console.log(data)
+              $scope.ans = data.data.result
+            }).catch((error)=>{
+              console.error(error)
+            })
+          } else {
+            console.log("equation")
+            $http.post('/evaluate',{"sum":$scope.sum})
+              .then((data)=>{
+              console.log(data)
+              $scope.ans = data.data.result
+            }).catch((error)=>{
+              console.error(error)
+            })
+          }
+
         }
       }]);
 

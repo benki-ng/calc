@@ -16,8 +16,15 @@ app.use('/',express.static('static'));
 app.use(parse.json());
 app.use(parse.urlencoded({extended : true}));
 
-app.post("/calculate", function(request, response) {
+//if standard calculation submitted
+app.post("/evaluate", function(request, response) {
     console.log(request.body['sum']);
     console.log(math.eval(request.body['sum']));
     response.send({"result":math.eval(request.body['sum'])})
+});
+
+//if factorial submitted
+app.post("/factorial", function(request, response) {
+    console.log(request.body['sum']);
+    response.send({"result":math.factorial(request.body['sum'])})
 });

@@ -28,3 +28,4 @@ app.post("/factorial", function(request, response) {
     console.log(request.body['sum']);
     response.send({"result":math.factorial(request.body['sum'])})
 });
+console.log("test")
